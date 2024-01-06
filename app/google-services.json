@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "2664975232",
+    "project_id": "techno-6f6fc",
+    "storage_bucket": "techno-6f6fc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:2664975232:android:ecaa4e07df39709333cf65",
+        "android_client_info": {
+          "package_name": "com.example.technosocialapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGeuprK3NUmRr562dzM0H-wGNx963iv60"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
