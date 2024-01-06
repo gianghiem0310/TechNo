@@ -6,12 +6,15 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.technosocialapp.Enum;
 import com.example.technosocialapp.MainActivity;
 import com.example.technosocialapp.R;
 import com.example.technosocialapp.adapter.ViewPagerAdapter;
@@ -26,10 +29,13 @@ public class OnBoardingActivity extends AppCompatActivity {
     ViewPager viewPager;
     CircleIndicator circleIndicator;
     ViewPagerAdapter viewPagerAdapter;
+    SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_boarding);
+        sharedPreferences = getBaseContext().getSharedPreferences(Enum.PRE_LOGIN, Context.MODE_PRIVATE);
+        sharedPreferences.edit().putInt(Enum.CHECK_USED,0).commit();
         anhXa();
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(viewPagerAdapter);

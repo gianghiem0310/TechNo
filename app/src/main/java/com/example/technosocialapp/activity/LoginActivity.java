@@ -3,12 +3,14 @@ package com.example.technosocialapp.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Looper;
 import android.text.Editable;
@@ -17,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.example.technosocialapp.Enum;
 import com.example.technosocialapp.R;
@@ -39,6 +42,8 @@ public class LoginActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     int type = 0;
     SharedPreferences sharedPreferences;
+    ConstraintLayout constraintLayout;
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +64,9 @@ public class LoginActivity extends AppCompatActivity {
         databaseReference = firebaseDatabase.getReference();
     }
     private void setSuKien(){
+        if(sharedPreferences.getInt(Enum.CHECK_USED,0)==Enum.USED){
+            ic_back.setVisibility(View.INVISIBLE);
+        }
         edtEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -88,6 +96,7 @@ public class LoginActivity extends AppCompatActivity {
         btnTiepTuc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progessBar(true);
                 kiemTra();
                 ketQua();
             }
@@ -98,12 +107,16 @@ public class LoginActivity extends AppCompatActivity {
                 new Runnable() {
                     public void run() {
                         if(type==0){
+                            progessBar(false);
                             go();
                         }else if(type==1){
+                            progessBar(false);
                             thongBao("Email hoặc mật khẩu bị trống!");
                         }else if(type == 2){
+                            progessBar(false);
                             thongBao("Email hoặc mật khẩu không đúng!");
                         }else if(type == 3){
+                            progessBar(false);
                             thongBao("Kết nối mạng chậm!");
                         }
                     }
@@ -114,6 +127,15 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, HomeActivity.class);
         Bundle b = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
         startActivity(intent,b);
+    }
+    private void progessBar(boolean check){
+        if(check==true){
+            progressBar.setVisibility(View.VISIBLE);
+            constraintLayout.setVisibility(View.VISIBLE);
+        }else{
+            progressBar.setVisibility(View.INVISIBLE);
+            constraintLayout.setVisibility(View.INVISIBLE);
+        }
     }
     private void kiemTra(){
         type = 0;
@@ -156,9 +178,10 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     private void setShared(int id, String name, String avatar){
-        sharedPreferences.edit().putString(Enum.ID_USER,id+"").commit();
+        sharedPreferences.edit().putInt(Enum.ID_USER,id).commit();
         sharedPreferences.edit().putString(Enum.NAME_USER,name).commit();
         sharedPreferences.edit().putString(Enum.IMAGE_USER,avatar).commit();
+
     }
     private void thongBao(String mes){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -177,5 +200,7 @@ public class LoginActivity extends AppCompatActivity {
         ic_back = findViewById(R.id.ic_back);
         edtEmail = findViewById(R.id.email);
         edtPassword = findViewById(R.id.password);
+        constraintLayout = findViewById(R.id.bg_login);
+        progressBar = findViewById(R.id.progessbar);
     }
 }

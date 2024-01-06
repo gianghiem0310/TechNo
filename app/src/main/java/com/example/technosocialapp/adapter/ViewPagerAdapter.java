@@ -22,7 +22,6 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         switch (position){
             case 0:
                 return new Board1Fragment();
-
             case 1:
                 return new Board2Fragment();
             case 2:

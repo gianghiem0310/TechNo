@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/btn_post"
+        android:title="Bài viết"
+        android:icon="@drawable/ic_news"
+        />
+    <item android:id="@+id/btn_friend"
+        android:title="Bạn bè"
+        android:icon="@drawable/ic_friend"
+        />
+    <item android:id="@+id/btn_addpost"
+        android:title="Tạo Post"
+        android:icon="@drawable/ic_add_news"
+        />
+    <item android:id="@+id/btn_noti"
+        android:title="Thông báo"
+        android:icon="@drawable/ic_noti"
+        />
+    <item android:id="@+id/btn_menu"
+        android:title="Menu"
+        android:icon="@drawable/ic_menu"
+        />
+</menu>
