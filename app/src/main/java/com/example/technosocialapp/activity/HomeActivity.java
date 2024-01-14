@@ -9,17 +9,27 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.example.technosocialapp.Enum;
 import com.example.technosocialapp.R;
 import com.example.technosocialapp.fragment.AbstractFragment;
+import com.example.technosocialapp.fragment.AddPostFragment;
 import com.example.technosocialapp.fragment.FriendFragment;
 import com.example.technosocialapp.fragment.NewsFragment;
 import com.example.technosocialapp.fragment.NotificationFragment;
 import com.example.technosocialapp.fragment.MenuFragment;
+import com.example.technosocialapp.model.StatusOnline;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.database.DatabaseReference;
+
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -33,6 +43,8 @@ public class HomeActivity extends AppCompatActivity {
     public static final int NOTIFICATION = 13;
     public static final int MENU = 14;
     private int screenID = NEWS;
+    private DatabaseReference databaseReference;
+    private long idUser = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +52,41 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         sharedPreferences = getSharedPreferences(Enum.PRE_LOGIN, Context.MODE_PRIVATE);
         sharedPreferences.edit().putInt(Enum.CHECK_USED,Enum.USED).commit();
+        idUser = sharedPreferences.getLong(Enum.ID_USER,-1);
+        databaseReference = Enum.DATABASE_REFERENCE;
         anhXa();
         setFragment();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        turnOnAndOffStatus(true);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        turnOnAndOffStatus(false);
+    }
+
+    private void turnOnAndOffStatus(boolean status){
+        Date currentTime = Calendar.getInstance().getTime();
+        Timestamp tsTemp = new Timestamp(currentTime.getTime());
+        long currentDate = tsTemp.getTime();
+        StatusOnline statusOnline = new StatusOnline(idUser,status,currentDate);
+        databaseReference.child(Enum.STATUS_ONLINE_TABLE).child(idUser+"").setValue(statusOnline).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
+
     }
     private void setFragment(){
         replacePage();
@@ -55,6 +100,10 @@ public class HomeActivity extends AppCompatActivity {
                         break;
                     case R.id.btn_friend:
                         screenID = FRIEND;
+                        replacePage();
+                        break;
+                    case R.id.btn_addpost:
+                        screenID = ADD_POST;
                         replacePage();
                         break;
                     case R.id.btn_noti:
@@ -81,6 +130,9 @@ public class HomeActivity extends AppCompatActivity {
             }
             if(screenID==FRIEND){
                 fragment = new FriendFragment();
+            }
+            if(screenID==ADD_POST){
+                fragment = new AddPostFragment();
             }
             if(screenID==NOTIFICATION){
                 fragment = new NotificationFragment();

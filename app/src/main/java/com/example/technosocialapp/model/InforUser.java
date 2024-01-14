@@ -1,17 +1,19 @@
 package com.example.technosocialapp.model;
 
-public class InforUser {
-    private int id;
+import java.io.Serializable;
+
+public class InforUser implements Serializable {
+    private long id;
     private String avatar;
     private String name;
-    private String date;
+    private long date;
     private String sex;
     private String address;
     private String job;
     private String company;
     private String favorite;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -35,11 +37,11 @@ public class InforUser {
         this.name = name;
     }
 
-    public String getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(long date) {
         this.date = date;
     }
 
@@ -83,7 +85,7 @@ public class InforUser {
         this.favorite = favorite;
     }
 
-    public InforUser(int id, String avatar, String name, String date, String sex, String address, String job, String company, String favorite) {
+    public InforUser(long id, String avatar, String name, long date, String sex, String address, String job, String company, String favorite) {
         this.id = id;
         this.avatar = avatar;
         this.name = name;

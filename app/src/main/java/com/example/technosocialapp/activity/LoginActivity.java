@@ -10,20 +10,24 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.technosocialapp.Enum;
 import com.example.technosocialapp.R;
 
+import com.example.technosocialapp.activity.dangky.DangKyPart1Activity;
 import com.example.technosocialapp.model.InforUser;
 import com.example.technosocialapp.model.User;
 import com.google.firebase.database.DataSnapshot;
@@ -38,12 +42,15 @@ public class LoginActivity extends AppCompatActivity {
     ImageView ic_back;
     EditText edtEmail;
     EditText edtPassword;
-    FirebaseDatabase firebaseDatabase;
+    TextView btnDangKy;
     DatabaseReference databaseReference;
     int type = 0;
     SharedPreferences sharedPreferences;
     ConstraintLayout constraintLayout;
     ProgressBar progressBar;
+    ImageView show;
+    boolean isChecked = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,10 +67,23 @@ public class LoginActivity extends AppCompatActivity {
         btnTiepTuc.setBackgroundResource(R.drawable.background_btn_false);
     }
     private void thietLapFireBase(){
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
+        databaseReference = Enum.DATABASE_REFERENCE;
     }
     private void setSuKien(){
+        show.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(isChecked == true){
+                    edtPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    isChecked = false;
+                }
+              else{
+                  edtPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    isChecked = true;
+                }
+            }
+        });
+
         if(sharedPreferences.getInt(Enum.CHECK_USED,0)==Enum.USED){
             ic_back.setVisibility(View.INVISIBLE);
         }
@@ -101,6 +121,12 @@ public class LoginActivity extends AppCompatActivity {
                 ketQua();
             }
         });
+        btnDangKy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goDangKi();
+            }
+        });
     }
     private void ketQua(){
         new android.os.Handler(Looper.getMainLooper()).postDelayed(
@@ -125,6 +151,11 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void go(){
         Intent intent = new Intent(this, HomeActivity.class);
+        Bundle b = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
+        startActivity(intent,b);
+    }
+    private void goDangKi(){
+        Intent intent = new Intent(this, DangKyPart1Activity.class);
         Bundle b = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
         startActivity(intent,b);
     }
@@ -162,7 +193,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    private void getInforUser(int id){
+    private void getInforUser(long id){
         databaseReference.child(Enum.INFOR_USER_TABLE).child(id+"").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -177,8 +208,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    private void setShared(int id, String name, String avatar){
-        sharedPreferences.edit().putInt(Enum.ID_USER,id).commit();
+    private void setShared(long id, String name, String avatar){
+        sharedPreferences.edit().putLong(Enum.ID_USER,id).commit();
         sharedPreferences.edit().putString(Enum.NAME_USER,name).commit();
         sharedPreferences.edit().putString(Enum.IMAGE_USER,avatar).commit();
 
@@ -199,8 +230,10 @@ public class LoginActivity extends AppCompatActivity {
         btnTiepTuc = findViewById(R.id.btnDangNhap);
         ic_back = findViewById(R.id.ic_back);
         edtEmail = findViewById(R.id.email);
-        edtPassword = findViewById(R.id.password);
+        edtPassword = findViewById(R.id.password_edt);
         constraintLayout = findViewById(R.id.bg_login);
         progressBar = findViewById(R.id.progessbar);
+        btnDangKy = findViewById(R.id.btnDangKy);
+        show = findViewById(R.id.show);
     }
 }

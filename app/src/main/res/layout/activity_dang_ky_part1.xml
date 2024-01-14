@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.dangky.DangKyPart1Activity"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bg_login"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/xam_nhat"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/ic_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:letterSpacing=".05"
+        android:text="Thông tin"
+        android:textColor="@color/main_app"
+        android:textSize="@dimen/title_size"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title_bottom"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="Thông tin này giúp tài khoản của bạn sẽ được \nquan tâm nhiều hơn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        />
+    <EditText
+        android:textColor="@color/black"
+        android:drawableLeft="@drawable/ic_name"
+        android:drawablePadding="10sp"
+        android:id="@+id/email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:padding="16sp"
+        android:textSize="16sp"
+        android:inputType="text"
+        android:background="@drawable/background_input"
+        android:hint="Tên người dùng"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title_bottom"
+        app:layout_constraintWidth_percent=".9" />
+    <LinearLayout
+        android:id="@+id/date1"
+        android:layout_width="0dp"
+        android:layout_height="55sp"
+        android:layout_marginTop="16dp"
+        android:padding="16sp"
+        android:textSize="16sp"
+        android:background="@drawable/background_input"
+        android:hint="Ngày sinh"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email"
+        app:layout_constraintWidth_percent=".9"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:src="@drawable/ic_date"
+            android:layout_width="0dp"
+            android:layout_height="22sp"
+            android:layout_weight="0.7"
+            />
+        <TextView
+            android:textColor="@color/black"
+            android:id="@+id/password"
+            android:hint="Ngày sinh"
+            android:textSize="16sp"
+            android:layout_width="0dp"
+            android:layout_marginStart="12sp"
+            android:layout_height="22sp"
+            android:layout_weight="9"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/sex"
+        android:layout_width="0dp"
+        android:layout_height="55sp"
+        android:layout_marginTop="16dp"
+        android:padding="16sp"
+        android:textSize="16sp"
+        android:background="@drawable/background_input"
+        android:hint="Ngày sinh"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.487"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/date1"
+        app:layout_constraintWidth_percent=".9"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:src="@drawable/ic_gender"
+            android:layout_width="0dp"
+            android:layout_height="22sp"
+            android:layout_weight="0.7"
+            />
+        <Spinner
+            android:id="@+id/spinner"
+            android:hint="Ngày sinh"
+            android:textSize="16sp"
+            android:layout_width="0dp"
+            android:layout_marginStart="5sp"
+            android:layout_height="22sp"
+            android:layout_weight="9"/>
+
+    </LinearLayout>
+<!--    <Spinner-->
+<!--        android:drawableLeft="@drawable/ic_gender"-->
+<!--        android:drawablePadding="10sp"-->
+<!--        android:id="@+id/sex"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="55sp"-->
+<!--        android:layout_marginTop="16dp"-->
+<!--        android:padding="16sp"-->
+<!--        android:background="@drawable/background_input"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.487"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/date"-->
+<!--        app:layout_constraintWidth_percent=".9" />-->
+
+    <Button
+        android:id="@+id/btnTiepTuc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_btn"
+        android:text="Tiếp tục"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_percent=".9"
+        tools:layout_editor_absoluteY="378dp"
+        app:layout_constraintTop_toBottomOf="@id/sex"
+        android:layout_marginTop="20dp"
+        />
+
+    <ProgressBar
+        android:id="@+id/progessbar"
+        android:layout_width="302dp"
+        android:layout_height="67dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

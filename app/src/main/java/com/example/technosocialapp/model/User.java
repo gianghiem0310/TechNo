@@ -3,16 +3,16 @@ package com.example.technosocialapp.model;
 import java.io.Serializable;
 
 public class User{
-    private int id;
+    private long id;
     private String email;
     private String password;
-    private int authentication;
+    private boolean authentication;
     private int type;
-    private String dateCreate;
+    private long dateCreate;
     public User() {
 
     }
-    public User(int id, String email, String password, int authentication, int type, String dateCreate) {
+    public User(long id, String email, String password, boolean authentication, int type, long dateCreate) {
         this.id = id;
         this.email = email;
         this.password = password;
@@ -21,7 +21,7 @@ public class User{
         this.dateCreate = dateCreate;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -45,11 +45,11 @@ public class User{
         this.password = password;
     }
 
-    public int getAuthentication() {
+    public boolean getAuthentication() {
         return authentication;
     }
 
-    public void setAuthentication(int authentication) {
+    public void setAuthentication(boolean authentication) {
         this.authentication = authentication;
     }
 
@@ -61,11 +61,11 @@ public class User{
         this.type = type;
     }
 
-    public String getDateCreate() {
+    public long getDateCreate() {
         return dateCreate;
     }
 
-    public void setDateCreate(String dateCreate) {
+    public void setDateCreate(long dateCreate) {
         this.dateCreate = dateCreate;
     }
 }

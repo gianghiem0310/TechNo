@@ -25,7 +25,7 @@ public class LoadingActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(sharedPreferences.getInt(Enum.ID_USER,Enum.NULL_INT)==Enum.NULL_INT){
+                if(sharedPreferences.getLong(Enum.ID_USER,Enum.NULL_INT)==Enum.NULL_INT){
                     if(sharedPreferences.getInt(Enum.CHECK_USED,0)==Enum.USED){
                             go();
                       }else{
