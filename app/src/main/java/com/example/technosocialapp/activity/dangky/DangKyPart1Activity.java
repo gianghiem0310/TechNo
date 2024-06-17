@@ -52,6 +52,7 @@ public class DangKyPart1Activity extends AppCompatActivity {
     private void go(){
         Bundle b = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
         startActivity(intent,b);
+
     }
     private void setSuKien(){
         ic_back.setOnClickListener(new View.OnClickListener() {
@@ -141,6 +142,15 @@ public class DangKyPart1Activity extends AppCompatActivity {
         },2023,01,01);
         dialog.show();
     }
+
+    private void setDuLieuSpinner(){
+        ArrayList arrayList = new ArrayList();
+        arrayList.add("Giới tính");
+        arrayList.add("Nam");
+        arrayList.add("Nữ");
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,arrayList);
+        spinner.setAdapter(adapter);
+    }
     private void progessBar(boolean check){
         if(check==true){
             progressBar.setVisibility(View.VISIBLE);
@@ -149,14 +159,6 @@ public class DangKyPart1Activity extends AppCompatActivity {
             progressBar.setVisibility(View.INVISIBLE);
             bg_login.setVisibility(View.INVISIBLE);
         }
-    }
-    private void setDuLieuSpinner(){
-        ArrayList arrayList = new ArrayList();
-        arrayList.add("Giới tính");
-        arrayList.add("Nam");
-        arrayList.add("Nữ");
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item,arrayList);
-        spinner.setAdapter(adapter);
     }
     private void thongBao(String mes){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

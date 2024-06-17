@@ -7,10 +7,14 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.technosocialapp.Enum;
 import com.example.technosocialapp.R;
@@ -43,8 +47,10 @@ public class HomeActivity extends AppCompatActivity {
     public static final int NOTIFICATION = 13;
     public static final int MENU = 14;
     private int screenID = NEWS;
-    private DatabaseReference databaseReference;
     private long idUser = -1;
+    public static TextView title;
+    public static ImageView ic_search;
+    public static ImageView ic_message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,42 +58,41 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         sharedPreferences = getSharedPreferences(Enum.PRE_LOGIN, Context.MODE_PRIVATE);
         sharedPreferences.edit().putInt(Enum.CHECK_USED,Enum.USED).commit();
-        idUser = sharedPreferences.getLong(Enum.ID_USER,-1);
-        databaseReference = Enum.DATABASE_REFERENCE;
+        idUser = sharedPreferences.getLong(Enum.ID_USER,Enum.NULL_INT);
         anhXa();
         setFragment();
+        setEvent();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        turnOnAndOffStatus(true);
+        Enum.turnOnAndOffStatus(true,idUser);
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        turnOnAndOffStatus(false);
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.finish();
+        System.exit(0);
     }
 
-    private void turnOnAndOffStatus(boolean status){
-        Date currentTime = Calendar.getInstance().getTime();
-        Timestamp tsTemp = new Timestamp(currentTime.getTime());
-        long currentDate = tsTemp.getTime();
-        StatusOnline statusOnline = new StatusOnline(idUser,status,currentDate);
-        databaseReference.child(Enum.STATUS_ONLINE_TABLE).child(idUser+"").setValue(statusOnline).addOnSuccessListener(new OnSuccessListener<Void>() {
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Enum.turnOnAndOffStatus(false,idUser);
+    }
+    private void setEvent(){
+        ic_message.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSuccess(Void unused) {
-
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this,ChatActivity.class);
+                startActivity(intent);
             }
         });
-
     }
+
+
     private void setFragment(){
         replacePage();
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
@@ -164,6 +169,9 @@ public class HomeActivity extends AppCompatActivity {
     }
     private void anhXa(){
         bottomNavigationView = findViewById(R.id.bottomNavigation);
+        title = findViewById(R.id.title);
+        ic_search = findViewById(R.id.ic_search);
+        ic_message = findViewById(R.id.ic_message);
     }
 
 }

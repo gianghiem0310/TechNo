@@ -59,6 +59,7 @@ public class DangKyPart2Activity extends AppCompatActivity {
     private void go(){
         Bundle b = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
         startActivity(intent,b);
+
     }
     private void setSuKien(){
         ic_back.setOnClickListener(new View.OnClickListener() {
@@ -116,10 +117,10 @@ public class DangKyPart2Activity extends AppCompatActivity {
             intent.putExtra("job_user",job);
         }
         if(!company.trim().isEmpty()){
-            intent.putExtra("company",company);
+            intent.putExtra("company_user",company);
         }
         if(!favorite.trim().isEmpty()){
-            intent.putExtra("favorite",favorite);
+            intent.putExtra("favorite_user",favorite);
         }
 
     }

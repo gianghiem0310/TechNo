@@ -57,7 +57,7 @@ public class DangKyPart3Activity extends AppCompatActivity {
     int type_dk = 1;
     long dateCreate_dk = 0;
     long date = 0;
-    String avatar_dk = "";
+    String avatar_dk = Enum.NULL;
     String name_dk = "";
     String sex_dk = "";
     String address = "";
@@ -70,6 +70,7 @@ public class DangKyPart3Activity extends AppCompatActivity {
     boolean isChecked1 = true;
     ImageView show2;
     boolean isChecked2 = true;
+    boolean state = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,8 +80,16 @@ public class DangKyPart3Activity extends AppCompatActivity {
         getIntentBanDau();
         anhXa();
         thietLapFireBase();
+        getIdNewLienTuc();
         setSuKien();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        kt = 0;
+    }
+
     private void getIntentBanDau(){
         name_dk = getIntent().getStringExtra("name_user");
         sex_dk = getIntent().getStringExtra("sex_user");
@@ -89,10 +98,28 @@ public class DangKyPart3Activity extends AppCompatActivity {
         job_dk = getIntent().getStringExtra("job_user");
         company_dk = getIntent().getStringExtra("company_user");
         favorite_dk = getIntent().getStringExtra("favorite_user");
+        address = address==null?Enum.NULL:address;
+        job_dk = job_dk==null?Enum.NULL:job_dk;
+        company_dk = company_dk==null?Enum.NULL:company_dk;
+        favorite_dk = favorite_dk==null?Enum.NULL:favorite_dk;
     }
     private void go(){
         Bundle b = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
         startActivity(intent,b);
+
+    }
+    private void getIdNewLienTuc(){
+        databaseReference.child(Enum.USER_TABLE).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                idNew = snapshot.getChildrenCount();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
     private void setSuKien(){
         show1.setOnClickListener(new View.OnClickListener() {
@@ -141,14 +168,22 @@ public class DangKyPart3Activity extends AppCompatActivity {
         databaseReference.child(Enum.USER_TABLE).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(kt == 0){
-                    idNew = snapshot.getChildrenCount();
-                    for (DataSnapshot snap: snapshot.getChildren()) {
+                if (state == true) {
+                    boolean check = true;
+                    for (DataSnapshot snap : snapshot.getChildren()) {
                         User user = snap.getValue(User.class);
-                        if (user.getEmail().equals(email.getText().toString())){
-                            kt = 1;
+                        if (user.getEmail().equals(email.getText().toString())) {
+                            check = false;
                             break;
                         }
+                    }
+                    if (check == false) {
+                        progessBar(false);
+                        thongBao("Email đã được đăng kí");
+                    } else {
+                        state = false;
+                        dangKyTaiKhoan(idNew);
+
                     }
                 }
             }
@@ -170,6 +205,7 @@ public class DangKyPart3Activity extends AppCompatActivity {
             @Override
             public void onSuccess(Void unused) {
                 dangKyInfor(inforUser);
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -184,6 +220,7 @@ public class DangKyPart3Activity extends AppCompatActivity {
            @Override
            public void onSuccess(Void unused) {
                progessBar(false);
+               state = true;
                intent.putExtra("object_user",inforUser);
                go();
            }
@@ -230,17 +267,10 @@ public class DangKyPart3Activity extends AppCompatActivity {
         if(type == 0){
             email_dk = email.getText().toString().trim();
             password_dk = password.getText().toString().trim();
-            checkFirebase();
             new android.os.Handler(Looper.getMainLooper()).postDelayed(
                     new Runnable() {
                         public void run() {
-                           if(kt == 1){
-                               progessBar(false);
-                               thongBao("Email đã được đăng ký!");
-                               kt = 0;
-                           }else {
-                                dangKyTaiKhoan(idNew);
-                           }
+                            checkFirebase();
                         }
                     },
                     3000);

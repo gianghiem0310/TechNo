@@ -104,6 +104,7 @@ public class DangKyPart4Activity extends AppCompatActivity {
     private void go(){
         Bundle b = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
         startActivity(intent,b);
+
     }
     private void updateAvatar(){
         StorageReference fileRef = reference.child(System.currentTimeMillis()+"."+getFileExtension(mUri));

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/btn_mes"
+        android:title="Nhắn tin"
+        android:icon="@drawable/ic_message_mini_blue"
+        />
+    <item android:id="@+id/btn_fr"
+        android:title="Bạn bè"
+        android:icon="@drawable/ic_friend"
+        />
+    <item android:id="@+id/btn_gr"
+        android:title="Nhóm"
+        android:icon="@drawable/ic_gr_chat"
+        />
+</menu>

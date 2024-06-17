@@ -60,7 +60,6 @@ public class LoginActivity extends AppCompatActivity {
         thietLapFireBase();
         setSuKien();
         setFirst();
-
     }
     private void setFirst(){
         btnTiepTuc.setEnabled(false);
@@ -153,6 +152,7 @@ public class LoginActivity extends AppCompatActivity {
         Intent intent = new Intent(this, HomeActivity.class);
         Bundle b = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
         startActivity(intent,b);
+
     }
     private void goDangKi(){
         Intent intent = new Intent(this, DangKyPart1Activity.class);
@@ -212,7 +212,6 @@ public class LoginActivity extends AppCompatActivity {
         sharedPreferences.edit().putLong(Enum.ID_USER,id).commit();
         sharedPreferences.edit().putString(Enum.NAME_USER,name).commit();
         sharedPreferences.edit().putString(Enum.IMAGE_USER,avatar).commit();
-
     }
     private void thongBao(String mes){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

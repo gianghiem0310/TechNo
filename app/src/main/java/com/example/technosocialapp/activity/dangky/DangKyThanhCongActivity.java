@@ -64,6 +64,7 @@ public class DangKyThanhCongActivity extends AppCompatActivity {
     private void go(){
         Bundle b = ActivityOptions.makeSceneTransitionAnimation(this).toBundle();
         startActivity(intent,b);
+
     }
     private void progessBar(boolean check){
         if(check==true){

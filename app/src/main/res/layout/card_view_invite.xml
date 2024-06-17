@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="120dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/avt_friend"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/avt_mac_dinh"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_marginStart="5dp"
+            android:id="@+id/infor_layout"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/avt_friend"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="10dp"
+                >
+
+                <TextView
+                    android:id="@+id/name_friend"
+                    android:layout_weight="8"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:maxWidth="250dp"
+                    android:maxLines="2"
+                    android:text="Nguyễn Gia Nghiêm"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="12 phút"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                     />
+            </LinearLayout>
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               >
+               <Button
+                   android:id="@+id/btnXacNhan"
+                   android:background="@drawable/background_btn"
+                   android:text="Xác nhận"
+                   android:textSize="16sp"
+                   android:textAllCaps="false"
+                   android:layout_marginEnd="16dp"
+                   android:layout_weight="5"
+                   android:layout_width="0dp"
+                   android:layout_height="40dp"/>
+               <Button
+                   app:backgroundTint="@null"
+                   android:background="@drawable/background_btn_false"
+                   android:id="@+id/btnGo"
+                   android:text="Gỡ"
+                   android:textSize="16sp"
+                   android:textAllCaps="false"
+                   android:layout_marginEnd="16dp"
+                   android:layout_weight="5"
+                   android:layout_width="0dp"
+                   android:layout_height="40dp"/>
+
+           </LinearLayout>
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.cardview.widget.CardView>
